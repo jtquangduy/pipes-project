@@ -1,11 +1,21 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'temp',
-    standalone: true,
+  name: 'temp',
+  standalone: true,
 })
-export class Temperature implements PipeTransform{
-    transform(value: any, ...args: any[]) {
-        return value + ' - transformed';
+export class Temperature implements PipeTransform {
+  transform(value: string | number) {
+    let val: number;
+
+    if (typeof value === 'string') {
+      val = parseFloat(value);
+    } else {
+      val = value;
     }
+
+    const outputTemp = val * (9 / 5) + 32;
+
+    return `${outputTemp} °F`;
+  }
 }
